@@ -60,8 +60,7 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 50; $i++) {
             $auteur = new Auteur();
-            $auteur->setNom($this->faker->lastName);
-            $auteur->setPrenom($this->faker->firstName);
+            $auteur->setNom($this->faker->name);
             $manager->persist($auteur);
         }
         $manager->flush();
@@ -73,7 +72,6 @@ class AppFixtures extends Fixture
             $randomDate = date('Y-m-d', $randomTimestamp);
             $livre->setDateDeParution(new \DateTime($randomDate));
             $livre->setNombreDePages(random_int(50,350));
-            $livre->setStatut("disponible");
             $livre->setTitre($this->faker->sentence($nbWords = random_int(1,3)));
             $categorie = $this->getRandomCategorie();
             $livre->addCategorie($categorie);
@@ -108,7 +106,6 @@ class AppFixtures extends Fixture
             $emprunt->setDateFinPrevue(new \DateTime($randomDate));
 
             $livre= $this->getRandomLivreDispo();
-            $livre->setStatut("non disponible");
             $emprunt->addLivre($livre);
             $manager->persist($livre);
             $manager->persist($emprunt);
@@ -143,7 +140,7 @@ class AppFixtures extends Fixture
 
     public function getRandomLivreDispo() : Livre
     {
-        $listLivre = $this->livreRepository->findBy(['statut' => 'disponible']);
+        $listLivre = $this->livreRepository->findAll();
         $randInt = random_int(0,sizeof($listLivre)-1);
         return $randLivre = $listLivre[$randInt];
     }

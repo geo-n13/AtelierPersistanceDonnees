@@ -47,22 +47,12 @@ class LivreType extends AbstractType
                 // Additional options if needed
             ])
             ->add('nombre_de_pages')
-            ->add('statut', ChoiceType::class, [
-                'label' => 'Statut',
-                'choices' => [
-                    'Disponible' => 'disponible',
-                    'Indisponible' => 'indisponible',
-                ],
-                'placeholder' => 'Choisir le statut',
-                'required' => true,
-            ])
+           
             ->add('Auteur', EntityType::class, [
                 'label' => 'Auteur',
                 'class' => Auteur::class,
                 'choices' => $auteurs,
-                'choice_label' => function ($auteur) {
-                    return $auteur->getNom() . ' ' . $auteur->getPrenom();
-                },
+                'choice_label' => 'nom',
                 'placeholder' => 'Choisir un auteur', // Optional placeholder text
                 'required' => false, // Set to true if the field is required
             ])
